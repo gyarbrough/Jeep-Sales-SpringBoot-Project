@@ -22,7 +22,7 @@ import com.promineotech.jeep.entity.JeepModel;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Sql(scripts = {
-    "classpath:flyway/migrations/v1.0__Jeep_Schema.sql", 
+    "classpath:flyway/migrations/V1.0__Jeep_Schema.sql", 
     "classpath:flyway/migrations/V1.1__Jeep_Data.sql"},
     config = @SqlConfig(encoding = "utf-8"))
 class FetchJeepTest extends FetchJeepTestSupport{
@@ -32,7 +32,7 @@ class FetchJeepTest extends FetchJeepTestSupport{
   
   @LocalServerPort
   private int serverPort;
-
+  
   @Test
   void testThatJeepsAreReturnedWhenAValidModelAndTrimAreSupplied() {
     // Given: a valid model, trim, and URI
@@ -46,6 +46,10 @@ class FetchJeepTest extends FetchJeepTestSupport{
     
     // Then: a success (OK - 200) is returned
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    
+    // And: the actual list returned is the same as expected list
+    List<Jeep> expected = buildExpected();
+    assertThat(response.getBody()).isEqualTo(expected);
   }
 
 }

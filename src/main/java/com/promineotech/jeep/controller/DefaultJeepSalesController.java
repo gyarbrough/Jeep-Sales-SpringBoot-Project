@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class BasicJeepSalesController implements JeepSalesController {
+public class DefaultJeepSalesController implements JeepSalesController {
   
   @Autowired
   private JeepSalesService jeepSalesService;
